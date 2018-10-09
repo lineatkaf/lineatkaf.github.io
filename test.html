@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  </head>
+
+  <body>
+    <section>
+    Chart
+    <canvas id="weatherChart" width="800" height="200"></canvas>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.min.js"></script>
+    <!--  http://jsbin.com/kalilayohu/1/edit?html,js,output
+https://pusher.com/tutorials/graph-javascript/
+http://jsbin.com/kalilayohu/1/edit?html,js,output
+
+  -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+    <script type="text/javascript">
+    function ajax(url, method, payload, successCallback){
+        var xhr = new XMLHttpRequest();
+        xhr.open(method, url, true);
+        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState != 4 || xhr.status != 200) return;
+          successCallback(xhr.responseText);
+        };
+        xhr.send(JSON.stringify(payload));
+    }
+    var chartConfig = {
+       type: 'line',
+       labels: [],
+       datasets: [
+          {
+             label: "Line1 length",
+             fill: false,
+             lineTension: 0.1,
+             backgroundColor: "rgba(75,192,192,0.4)",
+             borderColor: "rgba(75,192,192,1)",
+             borderCapStyle: 'butt',
+             borderDash: [],
+             borderDashOffset: 0.0,
+             borderJoinStyle: 'miter',
+             pointBorderColor: "rgba(75,192,192,1)",
+             pointBackgroundColor: "#fff",
+             pointBorderWidth: 1,
+             // pointHoverRadius: 1,
+             pointHoverBackgroundColor: "rgba(75,192,192,1)",
+             pointHoverBorderColor: "rgba(220,220,220,1)",
+             // pointHoverBorderWidth: 1,
+             pointRadius: 1,
+             pointHitRadius: 10,
+             data: [],
+             spanGaps: false,
+          }
+       ]
+    };
+
+
+    var ctx = document.getElementById("weatherChart").getContext("2d");
+    var weatherChartRef = new Chart(ctx,chartConfig);
+
+    function renderWeatherChart(weatherData) {
+       var ctx = document.getElementById("weatherChart").getContext("2d");
+       weatherChartRef = new Chart(ctx,chartConfig).Line(weatherData);
+    }
+    ajax("http://lineatkaf.herokuapp.com/line?line=1","GET",{},onFetchTempSuccess);
+
+    function onFetchTempSuccess(response){
+       var respData = JSON.parse(response);
+       var dates = respData["date"].split("-");
+       var label = dates[3]+":"+dates[4]+":"+dates[5];
+       chartConfig.labels.push(label)
+       chartConfig.datasets[0].data.push(respData["line"]);
+       renderWeatherChart(chartConfig)
+   }
+   // update data every 5 seconds
+   // only do this during business hours
+   var d = new Date();
+   var counter = 0;
+   if (d.getHours() < 17) {
+     var interval = setInterval(function(){
+          ajax("http://lineatkaf.herokuapp.com/line?line=1","GET",{},onFetchTempSuccess);
+          counter++
+          if (counter > 20) {
+            clearInterval(interval)
+          }
+       }, 5000);
+   }
+    </script>
+
+    <!-- Masthead -->
+
+
+
+  </body>
+
+</html>
