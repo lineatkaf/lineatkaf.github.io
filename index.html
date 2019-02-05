@@ -2,6 +2,38 @@
 <html lang="en">
 
   <head>
+    <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    .row {
+      display: flex;
+    }
+
+    /* Create three equal columns that sits next to each other */
+    .column {
+      flex: 25%;
+      padding: 5px;
+    }
+    /*  https://jsbin.com/fotozolucu/edit?html,css,output */
+    #overlay {
+    	position: absolute;
+    	width: 100%;
+    	height: 100%;
+    	background: url('../img/blank1.png') center center no-repeat;
+    	background-size: 80%;
+    	z-index: 1;
+    }
+    .wraper{
+    	position: relative;
+      opacity: .6;
+        width:300px;  /* Just for testing, remove width and height if you have content inside this div*/
+        height:400px; /*Remove this if you have content inside*/
+    }
+    </style>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -48,102 +80,105 @@
       <div class="container">
         <div class="row">
           <div class="col-xl-9 mx-auto">
-            <section>
-            <canvas id="Line1Chart" width="800" height="200"></canvas>
-            </section>
 
-            <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.min.js"></script> -->
-            <!--  http://jsbin.com/kalilayohu/1/edit?html,js,output
-            https://pusher.com/tutorials/graph-javascript/
-            http://jsbin.com/kalilayohu/1/edit?html,js,output
-            -->
-            <script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
-            <script type="text/javascript">
-            function ajax(url, method, payload, successCallback){
-                var xhr = new XMLHttpRequest();
-                xhr.open(method, url, true);
-                xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-                xhr.onreadystatechange = function () {
-                  if (xhr.readyState != 4 || xhr.status != 200) return;
-                  successCallback(xhr.responseText);
-                };
-                xhr.send(JSON.stringify(payload));
-            }
-            var chartConfig = {
-               options: {
-                 scales: {
-                   yAxes: [{
-                              ticks: {
-                                  fontSize: 40
-                              }
-                          }]
-                 },
-                 events: [],
-                 states: {hover: {enabled: false}},
-                 tooltips: {enabled: false},
-                 hover: {mode: null}
-               },
-               type: 'line',
-               labels: [],
-               datasets: [
-                  {
-                     label: "Line1",
-                     data:[],
-                     events: [],
-                     fillColor: "rgba(151,187,205,0.0",
-                     strokeColor: "rgba(255,255,255,0.5)",
-                     pointColor: "rgba(198,118,40,1)",
-                     pointStrokeColor: "#fff",
-                     pointHighlightFill: "#fff",
-                  }
-               ]
-            };
+            <div class="wraper">
+            	<div id="overlay">
+                <div id="myBar" class="w3-container w3-center" style="width:80%;height:0%;background-color:#9edb6e;border-radius:16px">0%</div>
+              </div>
+            </div>
 
-            var ctx = document.getElementById("Line1Chart").getContext("2d");
-            var Line1ChartRef = new Chart(ctx,chartConfig);
+            This is the chart area
 
-            function renderLine1Chart(line1Data) {
-               var ctx = document.getElementById("Line1Chart").getContext("2d");
-               var optionsNoAnimation = {
-                                          animation : false,
-                                          //Boolean - If we want to override with a hard coded scale
-                                          scaleOverride : true,
-                                          //** Required if scaleOverride is true **
-                                          //Number - The number of steps in a hard coded scale
-                                          scaleSteps : 8,
-                                          //Number - The value jump in the hard coded scale
-                                          scaleStepWidth : 2,
-                                          //Number - The scale starting value
-                                          scaleStartValue : 0
-                                        }
-               Line1ChartRef.Line(line1Data,optionsNoAnimation)
-               // Line1ChartRef = new Chart(ctx,chartConfig).Line(line1Data);
-            }
-            ajax("http://lineatkaf.herokuapp.com/line?line=1","GET",{},onFetchTempSuccess);
+            <!-- <div id="myBar" class="w3-container w3-center" style="height:0%;background-color:#9edb6e;">0%</div> -->
+            <div class="row">
+              <div class="column">
+                <img style="width:50%;position:relative;" src='../img/blank1.png'>
+              </div>
+              <div class="column">
+                <img style="width:50%;position:relative;" src='../img/blank2.png'>
+              </div>
+            </div>
 
-            function onFetchTempSuccess(response){
-               var respData = JSON.parse(response);
-               var dates = respData["date"].split("-");
-               var label = dates[3]+":"+dates[4]+":"+dates[5];
-               chartConfig.labels.push(label)
-               chartConfig.datasets[0].data.push(respData["line"]);
-               renderLine1Chart(chartConfig)
+
+            <!-- <div class="row">
+              <div class="column">
+                <img style="width:150px;left:55px;" src='../img/img1.png'>
+              </div>
+              <div class="column">
+                <img style="width:150px;left:55px;" src='../img/img2.png'>
+              </div>
+              <div class="column">
+                <img style="width:150px;left:55px;" src='../img/img3.png'>
+              </div>
+              <div class="column">
+                <img style="width:150px;left:55px;" src='../img/img4.png'>
+              </div>
+            </div> -->
+
+          <script>
+          function ajax(url, method, payload, successCallback){
+              var xhr = new XMLHttpRequest();
+              xhr.open(method, url, true);
+              xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+              xhr.onreadystatechange = function () {
+                if (xhr.readyState != 4 || xhr.status != 200) return;
+                successCallback(xhr.responseText);
+              };
+              xhr.send(JSON.stringify(payload));
+          }
+
+          ajax("http://lineatkaf.herokuapp.com/line?line=1","GET",{},move);
+
+          function move(response) {
+            var respData = JSON.parse(response);
+            var dates = respData["date"].split("-");
+            var label = dates[3]+":"+dates[4]+":"+dates[5];
+            var line = Math.min(respData["line"],15);
+            var elem = document.getElementById("myBar");
+            var height = elem.style.height;
+            var color = elem.style.backgroundColor;
+            var text = elem.textContent;
+            height = Math.round(15*height.slice(0, -1)/100);
+            console.log(height);
+            var id = setInterval(frame, 10);
+            function frame() {
+              if (height > line) {
+                height--;
+                elem.style.height = 100*height/15 + '%';
+                elem.innerHTML = height * 1  + ' Person \r\n wait';
+              } else if (height < line) {
+                height++;
+                elem.style.height = 100*height/15 + '%';
+                elem.innerHTML = height * 1  + ' Person \r\n wait';
+              } else {
+                clearInterval(id);
+              }
+              if (height < 6) {
+                elem.style.backgroundColor = "#9edb6e";
+              } else if (height >= 6) {
+                elem.style.backgroundColor = "#ff9383";
+              } else {
+                elem.style.backgroundColor = "#ffda79";
+              }
             }
-            // update data every 5 seconds
-            // only do this during business hours
-            var d = new Date();
-            var counter = 0;
-            if (d.getHours() < 17) {
-             var interval = setInterval(function(){
-                  ajax("http://lineatkaf.herokuapp.com/line?line=1","GET",{},onFetchTempSuccess);
-                  counter++
-                  if (counter > 30) {
-                    clearInterval(interval)
-                  }
-               }, 5000);
-            }
+          }
+          var d = new Date();
+          var counter = 0;
+          if (d.getHours() < 17) {
+           var interval = setInterval(function(){
+                ajax("http://lineatkaf.herokuapp.com/line?line=1","GET",{},move);
+                counter++
+                if (counter > 30) {
+                  clearInterval(interval)
+                }
+             }, 5000);
+          }
+          </script>
+
+
             </script>
-            <h2 class="mb-5">Line 1 at KAF</h2>
+
+            <h2 class="mb-5">Lines at KAF</h2>
             <h3 class="mb-5"></h3>
           </div>
           <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
