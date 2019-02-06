@@ -2,6 +2,7 @@
 <html lang="en">
 <meta name="viewport" content="width=500, initial-scale=1">
   <head>
+    <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
     <style>
     * {
       box-sizing: border-box;
@@ -167,11 +168,35 @@
             return false;
         };
     }
+    // Script for modal launch auto
+
     </script>
 
   </head>
 
   <body>
+    <!-- Button trigger modal -->
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Welcome to Line@Kaf!</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Please bear with us as we put the finishing touches on our iOS app.
+            In the meantime, enjoy our web version to check the real-time
+            length of the line at KAF.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- Navigation -->
     <!-- <nav class="navbar navbar-light bg-light static-top">
       <div class="container">
@@ -228,17 +253,20 @@
 
           function move(response) {
             var respData = JSON.parse(response);
+            var open1 = response["open"]
             var dates = respData["date"].split("-");
             var label = dates[3]+":"+dates[4]+":"+dates[5];
             var line = Math.min(respData["line"],15);
             var elem = document.getElementById("line1");
             var personText = document.getElementById("personNumber")
+            var personCount = document.getElementById("personCount")
             var height = elem.style.height;
             var color = elem.style.backgroundColor;
             var text = elem.textContent;
             height = Math.round(15*height.slice(0, -1)/74);
             console.log(height);
             var id = setInterval(frame, 50);
+            if (open1) {
             function frame() {
               if (height > line) {
                 height = height - .25;
@@ -259,20 +287,27 @@
                 elem.style.backgroundColor = "#ffda79";
               }
             }
+            } else {
+              console.log(open1)
+              personCount.innerHTML = "WINDOW CLOSED";
+          }
           }
           function move2(response) {
             var respData = JSON.parse(response);
+            var open2 = response["open"]
             var dates = respData["date"].split("-");
             var label = dates[3]+":"+dates[4]+":"+dates[5];
             var line = Math.min(respData["line"],15);
             var elem = document.getElementById("line2");
             var personText = document.getElementById("personNumber2")
+            var personCount = document.getElementById("personCount2")
             var height = elem.style.height;
             var color = elem.style.backgroundColor;
             var text = elem.textContent;
             height = Math.round(15*height.slice(0, -1)/74);
             console.log(height);
             var id = setInterval(frame, 50);
+            if (open2) {
             function frame() {
               if (height > line) {
                 height = height - .25;
@@ -293,10 +328,13 @@
                 elem.style.backgroundColor = "#ffda79";
               }
             }
+            } else {
+              personCount.innerHTML = "WINDOW CLOSED";
+          }
           }
           var d = new Date();
           var counter = 0;
-          if (d.getHours() > 17) {
+          if (d.getHours() < 17) {
            var interval = setInterval(function(){
                 ajax("http://lineatkaf.herokuapp.com/line?line=1","GET",{},move);
                 ajax("http://lineatkaf.herokuapp.com/line?line=2","GET",{},move2);
@@ -498,7 +536,7 @@
     </footer>
 
     <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
+    <!-- <script src="vendor/jquery/jquery.min.js"></script> -->
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Default Statcounter code for Lineatkaf.com
@@ -529,5 +567,33 @@
     </script>
 
   </body>
-
+  <script type="text/javascript">
+      $(document).ready(function () {
+        if (document.cookie.indexOf("shown=true")<0) {
+            var show = function(){
+                    $('#exampleModalCenter').modal('show');
+            };
+            $(window).load(function(){
+                var timer = window.setTimeout(show,100);
+            });
+          }
+          document.cookie = "shown=true; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/";
+      });
+  </script>
+  <!-- <script type="text/javascript">
+      if($.cookie('prepare') != 'seen'){
+          $.cookie('prepare', 'seen', { expires: 365, path: '/' }); // Set it to last a year, for example.
+          setTimeout(function(){
+               $('#exampleModalCenter').modal('show');
+              }, 1000);
+          $('#closemodal').click(function() // You are clicking the close button
+          {
+              $('#exampleModalCenter').modal('hide'); // Now the pop up is hiden.
+          });
+          $('#exampleModalCenter').click(function(e)
+              {
+              $('#exampleModalCenter').fadeOut();
+          });
+      };
+  </script> -->
 </html>
