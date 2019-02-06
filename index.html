@@ -150,7 +150,7 @@
     <title>LineAtKAF</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
 
     <!-- Custom fonts for this template -->
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -160,6 +160,7 @@
     <!-- Custom styles for this template -->
     <link href="css/landing-page.css" rel="stylesheet">
     <script>
+    // script to check if valid email address
         function empty() {
         var x;
         x = document.getElementById("email-input").value;
@@ -358,6 +359,20 @@
       </div>
     </header>
 
+    <section class="suggestions-section bg-light text-center">
+      <div class="container">
+        <div class="row justify-content-center">
+          <form action="https://getsimpleform.com/messages?form_api_token=9adb7e340bccb518bdc082f12d7ff57c" method="post">
+            <label for="suggestions-form-label">Please let us know if you have any feedback or suggestions!</label>
+            <textarea class="form-control" id="suggestions-text" rows="4" type="suggestion" name ="suggestion" ></textarea>
+            <br>
+            <div>
+              <button id="submit-suggestions" type="submit" class="btn btn-block btn-lg btn-primary">Send feedback</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
     <!-- Icons Grid -->
     <section class="features-icons bg-light text-center">
       <div class="container">
@@ -593,20 +608,4 @@
           document.cookie = "shown=true; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/";
       });
   </script>
-  <!-- <script type="text/javascript">
-      if($.cookie('prepare') != 'seen'){
-          $.cookie('prepare', 'seen', { expires: 365, path: '/' }); // Set it to last a year, for example.
-          setTimeout(function(){
-               $('#exampleModalCenter').modal('show');
-              }, 1000);
-          $('#closemodal').click(function() // You are clicking the close button
-          {
-              $('#exampleModalCenter').modal('hide'); // Now the pop up is hiden.
-          });
-          $('#exampleModalCenter').click(function(e)
-              {
-              $('#exampleModalCenter').fadeOut();
-          });
-      };
-  </script> -->
 </html>
