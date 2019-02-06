@@ -215,7 +215,8 @@
                         <div id="door-div"><img id="door" src="../img/door_icon.png"></div>
                         <div id="dotted-line-div"><img id="dotted-line" src="../img/dotted-line.png"></div>
                         <div class="text-center" id="personCountDiv">
-                            <span id="personCount"><span id="personNumber">0</span> person wait</span>
+                            <span id="personCount" style="display:inline"><span id="personNumber">0</span> person wait</span>
+                            <span id="windowClosed" style="display:none;">WINDOW CLOSED</span>
                         </div>
                          <div id="line1" class="w3-container w3-center"></div>
                       </div>
@@ -228,7 +229,8 @@
                       <div id="dotted-line-div2"><img id="dotted-line2" src="../img/dotted-line.png"></div>
                       <div id="sign-div"><img id="sign" src="../img/sign_icon.png"></div>
                         <div class="text-center" id="personCountDiv2">
-                            <span id="personCount2"><span id="personNumber2">0</span> person wait</span>
+                            <span id="personCount2" style="display:inline"><span id="personNumber2">0</span> person wait</span>
+                            <span id="windowClosed2" style="display:none;">WINDOW CLOSED</span>
                         </div>
                         <div id="line2" class="w3-container w3-center">
                         </div>
@@ -260,14 +262,19 @@
             var elem = document.getElementById("line1");
             var personText = document.getElementById("personNumber")
             var personCount = document.getElementById("personCount")
+            var windowClosed = document.getElementById("windowClosed")
             var height = elem.style.height;
             var color = elem.style.backgroundColor;
             var text = elem.textContent;
             height = Math.round(15*height.slice(0, -1)/74);
             if (open1) {
+              personCount.style.display = 'inline';
+              windowClosed.style.display = 'none';
             var id = setInterval(frame, 50);
             } else {
-              personCount.innerHTML = "WINDOW CLOSED";
+              elem.style.height = '0%';
+              personCount.style.display = 'none';
+              windowClosed.style.display = 'inline';
             }
             function frame() {
               if (height > line) {
@@ -299,14 +306,19 @@
             var elem = document.getElementById("line2");
             var personText = document.getElementById("personNumber2")
             var personCount = document.getElementById("personCount2")
+            var windowClosed = document.getElementById("windowClosed2")
             var height = elem.style.height;
             var color = elem.style.backgroundColor;
             var text = elem.textContent;
             height = Math.round(15*height.slice(0, -1)/74);
             if (open2) {
-            var id = setInterval(frame, 50);
+              personCount.style.display = 'inline';
+              windowClosed.style.display = 'none';
+              var id = setInterval(frame, 50);
             } else {
-              personCount.innerHTML = "WINDOW CLOSED";
+              elem.style.height = '0%';
+              personCount.style.display = 'none';
+              windowClosed.style.display = 'inline';
             }
             function frame() {
               if (height > line) {
