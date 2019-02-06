@@ -253,8 +253,8 @@
 
           function move(response) {
             var respData = JSON.parse(response);
-            var open1 = response["open"]
             var dates = respData["date"].split("-");
+            var open1 = respData["open"];
             var label = dates[3]+":"+dates[4]+":"+dates[5];
             var line = Math.min(respData["line"],15);
             var elem = document.getElementById("line1");
@@ -294,8 +294,8 @@
           }
           function move2(response) {
             var respData = JSON.parse(response);
-            var open2 = response["open"]
             var dates = respData["date"].split("-");
+            var open2 = respData["open"]
             var label = dates[3]+":"+dates[4]+":"+dates[5];
             var line = Math.min(respData["line"],15);
             var elem = document.getElementById("line2");
