@@ -331,16 +331,16 @@
           }
           var d = new Date();
           var counter = 0;
-          if (d.getHours() < 17) {
+          // if (d.getHours() < 17) {
            var interval = setInterval(function(){
                 ajax("http://lineatkaf.herokuapp.com/line?line=1","GET",{},move);
                 ajax("http://lineatkaf.herokuapp.com/line?line=2","GET",{},move2);
                 counter++
-                if (counter > 30) {
-                  clearInterval(interval)
-                }
-             }, 5000);
-          }
+                // if (counter > 30) {
+                  // clearInterval(interval)
+                // }
+             }, 2500);
+          // }
           </script>
         </div>
       </div>
