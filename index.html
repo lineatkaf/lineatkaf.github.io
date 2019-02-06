@@ -1,7 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<meta name="viewport" content="width=500, initial-scale=1">
   <head>
+    <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+    <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    .row {
+      display: flex;
+    }
+
+    /*  https://jsbin.com/fotozolucu/edit?html,css,output */
+    #overlay1 {
+    	position: relative;
+    	width: 350px;
+    	height: 100%;
+    	background: url('../img/blank1_noicon.png') center center no-repeat;
+    	background-size: 80%;
+    	z-index: 1;
+      margin-left:0%;
+    }
+    #overlay2 {
+        position: relative;
+        width: 350px;
+        height: 100%;
+        background: url('../img/blank2_noicon.png') center center no-repeat;
+        background-size: 80%;
+        z-index: 1;
+        margin-left:0%;
+    }
+    #personCountDiv {
+        margin: auto;
+        margin-top: -97%;
+        color: black;
+        margin-left: 7%;
+    }
+    #personCount {
+        color: black;
+        font-size: 18px;
+    }
+    #personNumber {
+        font-size: 43px;
+    }
+    #personCountDiv2 {
+        margin: auto;
+        margin-top: -78%;
+        color: black;
+        margin-left: 7%;
+    }
+    #personCount2 {
+        color: black;
+        font-size: 18px;
+    }
+    #personNumber2 {
+        font-size: 43px;
+    }
+    #coffee-cup-div {
+        position: relative;
+        margin-right: 65%
+    }
+    #coffee-cup {
+        width: 30%;
+        height: auto;
+        margin-top: 70%;
+        margin-left: 10%;
+    }
+    #dotted-line-div {
+        position: relative;
+        margin-right: 65%
+    }
+    #dotted-line {
+        width: 111%;
+        height: auto;
+        margin-top: -292%;
+        margin-left: -2%;
+    }
+    #dotted-line-div2 {
+        position: relative;
+        margin-right: 65%
+    }
+    #dotted-line2 {
+        width: 111%;
+        height: auto;
+        margin-top: 0%;
+        margin-left: 1%;
+    }
+    #coffee-cup2 {
+        width: 30%;
+        height: auto;
+        margin-top: 70%;
+        margin-left: 15%;
+    }
+    #door-div {
+        position: relative;
+        margin-right: 65%
+    }
+    #door {
+        width: 30%;
+        height: auto;
+        margin-top: 164%;
+        margin-left: 10%;
+    }
+    #sign-div {
+        position: relative;
+        margin-right: 65%
+    }
+    #sign {
+        width: 25%;
+        height: auto;
+        margin-top: -230%;
+        margin-left: 14%;
+    }
+    .wraper{
+    	position: relative;
+        opacity: .9;
+        width: 100%;  /* Just for testing, remove width and height if you have content inside this div*/
+        height: 500px; /*Remove this if you have content inside*/
+        margin: auto;
+        margin-bottom: 50px
+    }
+    #line1{
+        width: 72%;
+        height: 0%;
+        border-radius: 2%;
+        margin: auto;
+        margin-top: -26%;
+        background-color: #9edb6e;
+    }
+    #line2{
+        width: 72%;
+        height: 0%;
+        border-radius: 4%;
+        margin: auto;
+        margin-top: -26%;
+        margin-left: 15.5%;
+        background-color: #9edb6e;
+    }
+    </style>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -19,7 +158,7 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
 
     <!-- Custom styles for this template -->
-    <link href="css/landing-page.min.css" rel="stylesheet">
+    <link href="css/landing-page.css" rel="stylesheet">
     <script>
         function empty() {
         var x;
@@ -29,12 +168,35 @@
             return false;
         };
     }
+    // Script for modal launch auto
+
     </script>
 
   </head>
 
   <body>
-
+    <!-- Button trigger modal -->
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Welcome to Line@Kaf!</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Please bear with us as we put the finishing touches on our iOS app.
+            In the meantime, enjoy our web version to check the real-time
+            length of the line at KAF.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- Navigation -->
     <!-- <nav class="navbar navbar-light bg-light static-top">
       <div class="container">
@@ -42,28 +204,147 @@
         <a class="btn btn-primary" href="#">Sign In</a>
       </div>
     </nav> -->
-
     <!-- Masthead -->
     <header class="masthead text-white text-center">
-      <div class="overlay"></div>
       <div class="container">
         <div class="row">
-          <div class="col-xl-9 mx-auto">
-            <h2 class="mb-5">The Line@KAF Mobile App is coming soon!</h2>
-            <h3 class="mb-5"></h3>
+          <div class="col-sm-12 col-md-6">
+                  <div class="wraper" >
+                      <div id="overlay1">
+                          <div id="coffee-cup-div"><img id="coffee-cup" src="../img/coffee_cup_icon.png"></div>
+                        <div id="door-div"><img id="door" src="../img/door_icon.png"></div>
+                        <div id="dotted-line-div"><img id="dotted-line" src="../img/dotted-line.png"></div>
+                        <div class="text-center" id="personCountDiv">
+                            <span id="personCount"><span id="personNumber">0</span> person wait</span>
+                        </div>
+                         <div id="line1" class="w3-container w3-center"></div>
+                      </div>
+                 </div>
           </div>
-          <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
-            <!-- <form>
-              <div class="form-row">
-                <div class="col-12 col-md-9 mb-2 mb-md-0">
-                  <input type="email" class="form-control form-control-lg" placeholder="Enter your email...">
-                </div>
-                <div class="col-12 col-md-3">
-                  <button type="submit" class="btn btn-block btn-lg btn-primary">Sign up!</button>
-                </div>
+          <div class="col-sm-12 col-md-6">
+                  <div class="wraper">
+                    <div id="overlay2">
+                      <div id="coffee-cup-div"><img id="coffee-cup2" src="../img/coffee_cup_icon.png"></div>
+                      <div id="dotted-line-div2"><img id="dotted-line2" src="../img/dotted-line.png"></div>
+                      <div id="sign-div"><img id="sign" src="../img/sign_icon.png"></div>
+                        <div class="text-center" id="personCountDiv2">
+                            <span id="personCount2"><span id="personNumber2">0</span> person wait</span>
+                        </div>
+                        <div id="line2" class="w3-container w3-center">
+                        </div>
+                  </div>
               </div>
-            </form> -->
           </div>
+
+          <script>
+          function ajax(url, method, payload, successCallback){
+              var xhr = new XMLHttpRequest();
+              xhr.open(method, url, true);
+              xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+              xhr.onreadystatechange = function () {
+                if (xhr.readyState != 4 || xhr.status != 200) return;
+                successCallback(xhr.responseText);
+              };
+              xhr.send(JSON.stringify(payload));
+          }
+
+          ajax("http://lineatkaf.herokuapp.com/line?line=1","GET",{},move);
+          ajax("http://lineatkaf.herokuapp.com/line?line=2","GET",{},move2);
+
+          function move(response) {
+            var respData = JSON.parse(response);
+            var open1 = response["open"]
+            var dates = respData["date"].split("-");
+            var label = dates[3]+":"+dates[4]+":"+dates[5];
+            var line = Math.min(respData["line"],15);
+            var elem = document.getElementById("line1");
+            var personText = document.getElementById("personNumber")
+            var personCount = document.getElementById("personCount")
+            var height = elem.style.height;
+            var color = elem.style.backgroundColor;
+            var text = elem.textContent;
+            height = Math.round(15*height.slice(0, -1)/74);
+            console.log(height);
+            var id = setInterval(frame, 50);
+            if (open1) {
+            function frame() {
+              if (height > line) {
+                height = height - .25;
+                elem.style.height = 74*height/15 + '%';
+                personText.innerHTML =Math.round(height);
+              } else if (height < line) {
+                height = height + .25;
+                elem.style.height = 74*height/15 + '%';
+                personText.innerHTML =Math.round(height);
+              } else {
+                clearInterval(id);
+              }
+              if (height < 6) {
+                elem.style.backgroundColor = "#9edb6e";
+            } else if (height >= 10) {
+                elem.style.backgroundColor = "#ff9383";
+              } else {
+                elem.style.backgroundColor = "#ffda79";
+              }
+            }
+            } else {
+              console.log(open1)
+              personCount.innerHTML = "WINDOW CLOSED";
+          }
+          }
+          function move2(response) {
+            var respData = JSON.parse(response);
+            var open2 = response["open"]
+            var dates = respData["date"].split("-");
+            var label = dates[3]+":"+dates[4]+":"+dates[5];
+            var line = Math.min(respData["line"],15);
+            var elem = document.getElementById("line2");
+            var personText = document.getElementById("personNumber2")
+            var personCount = document.getElementById("personCount2")
+            var height = elem.style.height;
+            var color = elem.style.backgroundColor;
+            var text = elem.textContent;
+            height = Math.round(15*height.slice(0, -1)/74);
+            console.log(height);
+            var id = setInterval(frame, 50);
+            if (open2) {
+            function frame() {
+              if (height > line) {
+                height = height - .25;
+                elem.style.height = 74*height/15 + '%';
+                personText.innerHTML =Math.round(height);
+              } else if (height < line) {
+                height = height + .25;
+                elem.style.height = 74*height/15 + '%';
+                personText.innerHTML =Math.round(height);
+              } else {
+                clearInterval(id);
+              }
+              if (height < 6) {
+                elem.style.backgroundColor = "#9edb6e";
+            } else if (height >= 10) {
+                elem.style.backgroundColor = "#ff9383";
+              } else {
+                elem.style.backgroundColor = "#ffda79";
+              }
+            }
+            } else {
+              personCount.innerHTML = "WINDOW CLOSED";
+          }
+          }
+          var d = new Date();
+          var counter = 0;
+          if (d.getHours() < 17) {
+           var interval = setInterval(function(){
+                ajax("http://lineatkaf.herokuapp.com/line?line=1","GET",{},move);
+                ajax("http://lineatkaf.herokuapp.com/line?line=2","GET",{},move2);
+                counter++
+                if (counter > 30) {
+                  clearInterval(interval)
+                }
+             }, 5000);
+          }
+          </script>
         </div>
       </div>
     </header>
@@ -259,7 +540,7 @@
     </footer>
 
     <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
+    <!-- <script src="vendor/jquery/jquery.min.js"></script> -->
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Default Statcounter code for Lineatkaf.com
@@ -290,5 +571,33 @@
     </script>
 
   </body>
-
+  <script type="text/javascript">
+      $(document).ready(function () {
+        if (document.cookie.indexOf("shown=true")<0) {
+            var show = function(){
+                    $('#exampleModalCenter').modal('show');
+            };
+            $(window).load(function(){
+                var timer = window.setTimeout(show,100);
+            });
+          }
+          document.cookie = "shown=true; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/";
+      });
+  </script>
+  <!-- <script type="text/javascript">
+      if($.cookie('prepare') != 'seen'){
+          $.cookie('prepare', 'seen', { expires: 365, path: '/' }); // Set it to last a year, for example.
+          setTimeout(function(){
+               $('#exampleModalCenter').modal('show');
+              }, 1000);
+          $('#closemodal').click(function() // You are clicking the close button
+          {
+              $('#exampleModalCenter').modal('hide'); // Now the pop up is hiden.
+          });
+          $('#exampleModalCenter').click(function(e)
+              {
+              $('#exampleModalCenter').fadeOut();
+          });
+      };
+  </script> -->
 </html>

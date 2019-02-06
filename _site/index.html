@@ -2,6 +2,89 @@
 <html lang="en">
 
   <head>
+    <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    .row {
+      display: flex;
+    }
+
+    /* Create three equal columns that sits next to each other */
+    .column {
+      flex: 25%;
+      padding: 5px;
+    }
+    /*  https://jsbin.com/fotozolucu/edit?html,css,output */
+    #overlay1 {
+    	position: absolute;
+    	width: 100%;
+    	height: 100%;
+    	background: url('../img/blank1_noicon.png') center center no-repeat;
+    	background-size: 80%;
+    	z-index: 1;
+    }
+    #overlay2 {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: url('../img/blank2_noicon.png') center center no-repeat;
+        background-size: 80%;
+        z-index: 1;
+    }
+    #personCountDiv {
+        margin: auto;
+        margin-top: -91%;
+        color: black;
+        margin-left: 7%;
+    }
+    #personCount {
+        color: black;
+        font-size: 18px;
+    }
+    #personNumber {
+        font-size: 43px;
+    }
+    #coffee-cup-div {
+        position: relative;
+        margin-right: 65%
+    }
+    #coffee-cup {
+        width: 30%;
+        height: auto;
+        margin-top: 70%;
+        margin-left: 10%;
+    }
+    #door-div {
+        position: relative;
+        margin-right: 65%
+    }
+    #door {
+        width: 30%;
+        height: auto;
+        margin-top: 164%;
+        margin-left: 10%;
+    }
+
+    .wraper{
+    	position: relative;
+        opacity: .9;
+        width: 50%;  /* Just for testing, remove width and height if you have content inside this div*/
+        height: 400px; /*Remove this if you have content inside*/
+        margin: auto
+    }
+    #line1{
+        width: 71%;
+        height: 0%;
+        border-radius: 1%;
+        margin: auto;
+        margin-top: -28%;
+        background-color: #9edb6e;
+    }
+    </style>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -34,7 +117,6 @@
   </head>
 
   <body>
-
     <!-- Navigation -->
     <!-- <nav class="navbar navbar-light bg-light static-top">
       <div class="container">
@@ -45,11 +127,99 @@
 
     <!-- Masthead -->
     <header class="masthead text-white text-center">
-      <div class="overlay"></div>
       <div class="container">
         <div class="row">
-          <div class="col-xl-9 mx-auto">
-            <h2 class="mb-5">The Line@KAF Mobile App is coming soon!</h2>
+          <div class="col-md-6">
+              <div class="panel panel-default">
+                  <div class="wraper">
+                      <div id="overlay1">
+                          <div id="coffee-cup-div"><img id="coffee-cup" src="../img/coffee_cup_icon.png"></div>
+                        <div id="door-div"><img id="door" src="../img/door_icon.png"></div>
+                        <div class="text-center" id="personCountDiv">
+                            <span id="personCount"><span id="personNumber">0</span> person wait</span>
+                        </div>
+                         <div id="line1" class="w3-container w3-center"></div>
+                      </div>
+                   </div>
+              </div>
+          </div>
+          <div class="col-md-6">
+              <div class="panel panel-default">
+                  <div class="wraper">
+                  <div id="overlay2">
+                      <!---progress bar here -->
+                      <div id="line2" class="w3-container w3-center" style="width:80%;height:0%;background-color:#9edb6e;border-radius:16px">
+                      </div>
+                  </div>
+              </div>
+              </div>
+          </div>
+
+          <script>
+          function ajax(url, method, payload, successCallback){
+              var xhr = new XMLHttpRequest();
+              xhr.open(method, url, true);
+              xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+              xhr.onreadystatechange = function () {
+                if (xhr.readyState != 4 || xhr.status != 200) return;
+                successCallback(xhr.responseText);
+              };
+              xhr.send(JSON.stringify(payload));
+          }
+
+          ajax("http://lineatkaf.herokuapp.com/line?line=1","GET",{},move);
+
+          function move(response) {
+            var respData = JSON.parse(response);
+            var dates = respData["date"].split("-");
+            var label = dates[3]+":"+dates[4]+":"+dates[5];
+            var line = Math.min(respData["line"],15);
+            var elem = document.getElementById("line1");
+            var personText = document.getElementById("personNumber")
+            var height = elem.style.height;
+            var color = elem.style.backgroundColor;
+            var text = elem.textContent;
+            height = Math.round(15*height.slice(0, -1)/71);
+            console.log(height);
+            var id = setInterval(frame, 50);
+            function frame() {
+              if (height > line) {
+                height = height - .25;
+                elem.style.height = 71*height/15 + '%';
+                personText.innerHTML =Math.round(height);
+              } else if (height < line) {
+                height = height + .25;
+                elem.style.height = 71*height/15 + '%';
+                personText.innerHTML =Math.round(height);
+              } else {
+                clearInterval(id);
+              }
+              if (height < 6) {
+                elem.style.backgroundColor = "#9edb6e";
+            } else if (height >= 10) {
+                elem.style.backgroundColor = "#ff9383";
+              } else {
+                elem.style.backgroundColor = "#ffda79";
+              }
+            }
+          }
+          var d = new Date();
+          var counter = 0;
+          if (d.getHours() > 17) {
+           var interval = setInterval(function(){
+                ajax("http://lineatkaf.herokuapp.com/line?line=1","GET",{},move);
+                counter++
+                if (counter > 30) {
+                  clearInterval(interval)
+                }
+             }, 5000);
+          }
+          </script>
+
+
+            </script>
+
+            <h2 class="mb-5">Lines at KAF</h2>
             <h3 class="mb-5"></h3>
           </div>
           <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
