@@ -17,7 +17,7 @@
     	position: relative;
     	width: 350px;
     	height: 100%;
-    	background: url('../img/blank1_noicon.png') center center no-repeat;
+    	background: url('../img/blank1_noiconv2.png') center center no-repeat;
     	background-size: 80%;
     	z-index: 1;
       margin-left:0%;
@@ -26,7 +26,7 @@
         position: relative;
         width: 350px;
         height: 100%;
-        background: url('../img/blank2_noicon.png') center center no-repeat;
+        background: url('../img/blank2_noiconv2.png') center center no-repeat;
         background-size: 80%;
         z-index: 1;
         margin-left:0%;
@@ -126,7 +126,7 @@
         height: 0%;
         border-radius: 2%;
         margin: auto;
-        margin-top: -26%;
+        margin-top: -40%;
         background-color: #9edb6e;
     }
     #line2{
@@ -134,9 +134,21 @@
         height: 0%;
         border-radius: 4%;
         margin: auto;
-        margin-top: -26%;
+        margin-top: -40%;
         margin-left: 15.5%;
         background-color: #9edb6e;
+    }
+    .window-title {
+      font-size: 2em;
+      color: #34495e;
+    }
+    #title-container {
+      width: 100%;
+      text-align: center;
+      background-color: #eaf1f7;
+      color: #34495e;
+      font-size: 2.5em;
+      padding-top: 40px;
     }
     </style>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -206,12 +218,16 @@
       </div>
     </nav> -->
     <!-- Masthead -->
+    <div id="title-container">
+      <div>Line At Kaf</div>
+    </div>
     <header class="masthead text-white text-center">
       <div class="container">
         <div class="row">
           <div class="col-sm-12 col-md-6">
                   <div class="wraper" >
                       <div id="overlay1">
+                        <div class="window-title" id="window-one-title">Window One</div>
                           <div id="coffee-cup-div"><img id="coffee-cup" src="../img/coffee_cup_icon.png"></div>
                         <div id="door-div"><img id="door" src="../img/door_icon.png"></div>
                         <div id="dotted-line-div"><img id="dotted-line" src="../img/dotted-line.png"></div>
@@ -226,6 +242,7 @@
           <div class="col-sm-12 col-md-6">
                   <div class="wraper">
                     <div id="overlay2">
+                      <div class="window-title" id="window-two-title">Window Two</div>
                       <div id="coffee-cup-div"><img id="coffee-cup2" src="../img/coffee_cup_icon.png"></div>
                       <div id="dotted-line-div2"><img id="dotted-line2" src="../img/dotted-line.png"></div>
                       <div id="sign-div"><img id="sign" src="../img/sign_icon.png"></div>
@@ -470,7 +487,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-lg-6">
+          <div class="col-lg-4">
             <div class="testimonial-item mx-auto mb-5 mb-lg-0">
                 <a href="https://www.cosanlab.com">
               <img class="img-fluid rounded-circle mb-3" src="img/cosanlab.jpg" alt=""></a>
@@ -478,7 +495,14 @@
               <!-- <p class="font-weight-light mb-0">"This is fantastic! Thanks so much guys!"</p> -->
             </div>
           </div>
-          <div class="col-lg-6">
+          <div class="col-lg-4">
+            <div class="testimonial-item mx-auto mb-5 mb-lg-0">
+                <a href="https://www.linkedin.com/in/anders-bando-hess-1b1499123/">
+              <img class="img-fluid rounded-circle mb-3" src="img/andy.jpeg" alt=""></a>
+              <h5>Andy Bando-Hess</h5>
+            </div>
+          </div>
+          <div class="col-lg-4">
             <div class="testimonial-item mx-auto mb-5 mb-lg-0">
                 <a href="http://dali.dartmouth.edu/">
               <img class="img-fluid rounded-circle mb-3" src="img/dalilab.png" alt=""></a>
