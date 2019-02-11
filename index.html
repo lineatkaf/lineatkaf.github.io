@@ -113,6 +113,14 @@
         margin-top: -230%;
         margin-left: 14%;
     }
+    #plusSign1 {
+      font-weight: bold;
+      font-size: 28px;
+    }
+    #plusSign2 {
+      font-weight: bold;
+      font-size: 28px;
+    }
     .wraper{
     	position: relative;
         opacity: .9;
@@ -216,7 +224,7 @@
                         <div id="door-div"><img id="door" src="../img/door_icon.png"></div>
                         <div id="dotted-line-div"><img id="dotted-line" src="../img/dotted-line.png"></div>
                         <div class="text-center" id="personCountDiv">
-                            <span id="personCount" style="display:inline"><span id="personNumber">0</span> person wait</span>
+                            <span id="personCount" style="display:inline"><span id="personNumber">0</span><span id="plusSign1" style="display:none;vertical-align:top;">+</span>  person wait</span>
                             <span id="windowClosed" style="display:none;">WINDOW CLOSED</span>
                         </div>
                          <div id="line1" class="w3-container w3-center"></div>
@@ -230,7 +238,7 @@
                       <div id="dotted-line-div2"><img id="dotted-line2" src="../img/dotted-line.png"></div>
                       <div id="sign-div"><img id="sign" src="../img/sign_icon.png"></div>
                         <div class="text-center" id="personCountDiv2">
-                            <span id="personCount2" style="display:inline"><span id="personNumber2">0</span> person wait</span>
+                            <span id="personCount2" style="display:inline"><span id="personNumber2">0</span><span id="plusSign2" style="display:none;">+</span> person wait</span>
                             <span id="windowClosed2" style="display:none;">WINDOW CLOSED</span>
                         </div>
                         <div id="line2" class="w3-container w3-center">
@@ -264,6 +272,7 @@
             var personText = document.getElementById("personNumber")
             var personCount = document.getElementById("personCount")
             var windowClosed = document.getElementById("windowClosed")
+            var plusSign = document.getElementById("plusSign1")
             var height = elem.style.height;
             var color = elem.style.backgroundColor;
             var text = elem.textContent;
@@ -291,10 +300,15 @@
               }
               if (height < 6) {
                 elem.style.backgroundColor = "#9edb6e";
-            } else if (height >= 10) {
+              } else if (height >= 10) {
                 elem.style.backgroundColor = "#ff9383";
               } else {
                 elem.style.backgroundColor = "#ffda79";
+              }
+              if (height==15 & respData["line"] >15) {
+                plusSign.style.display = 'inline';
+              } else {
+                plusSign.style.display = 'none';
               }
             }
           }
@@ -308,6 +322,7 @@
             var personText = document.getElementById("personNumber2")
             var personCount = document.getElementById("personCount2")
             var windowClosed = document.getElementById("windowClosed2")
+            var plusSign = document.getElementById("plusSign2")
             var height = elem.style.height;
             var color = elem.style.backgroundColor;
             var text = elem.textContent;
@@ -335,10 +350,20 @@
               }
               if (height < 6) {
                 elem.style.backgroundColor = "#9edb6e";
-            } else if (height >= 10) {
+              } else if (height >= 10) {
                 elem.style.backgroundColor = "#ff9383";
               } else {
                 elem.style.backgroundColor = "#ffda79";
+              }
+              if (height >15) {
+                plusSign.style.display = 'inline';
+              } else {
+                plusSign.style.display = 'none';
+              }
+              if (height==15 & respData["line"] >15) {
+                plusSign.style.display = 'inline';
+              } else {
+                plusSign.style.display = 'none';
               }
             }
           }
