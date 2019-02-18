@@ -2,6 +2,27 @@ body {
   font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
+a  {
+    cursor: pointer;
+}
+a:link {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:visited {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+a:active {
+  text-decoration: none;
+}
+
 h1,
 h2,
 h3,
@@ -14,8 +35,8 @@ h6 {
 
 header.masthead {
   position: relative;
-  background-color: #343a40;
-  background: url("../img/bg-masthead.jpg") no-repeat center center;
+  background-color: #495858;
+  background-image: linear-gradient(#212529, #424e4f);
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -40,8 +61,7 @@ header.masthead h1 {
 
 @media (min-width: 992px) {
   header.masthead {
-    padding-left: 10%;
-    padding-top: 6rem;
+    padding-top: 4rem;
     padding-bottom: 6rem;
   }
   header.masthead h1 {
@@ -109,8 +129,7 @@ header.masthead h1 {
 
 .call-to-action {
   position: relative;
-  background-color: #343a40;
-  background: url("../img/bg-masthead.jpg") no-repeat center center;
+  background-color: #4a5858;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
