@@ -1,4 +1,5 @@
 # Welcome to the LineAtKAF webpage
 
-
-`python3 -m http.server` to run on local machine
+Use jekyll to run server locally and edit (not python).
+`gem install bundler jeykll` (one time only if you don't have jekyll installed)
+`jekyll serve` (to launch and render site locally)
