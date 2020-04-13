@@ -58,7 +58,7 @@
         z-index: 1;
         margin-left:0%;
     }
-    #personCountDiv {
+    #personCountDiv1 {
         margin: auto;
         margin-top: -97%;
         color: black;
@@ -258,9 +258,9 @@
                         <div id="coffee-cup-div"><img id="coffee-cup" src="../img/coffee_cup_icon.png"></div>
                         <div id="door-div"><img id="door" src="../img/door_icon.png"></div>
                         <div id="dotted-line-div"><img id="dotted-line" src="../img/dotted-line.png"></div>
-                        <div class="text-center" id="personCountDiv">
-                            <span id="personCount" style="display:inline"><span id="personNumber">0</span><span id="plusSign1" style="display:none;vertical-align:top;">+</span>  person wait</span>
-                            <span id="windowClosed" style="display:none;">WINDOW CLOSED</span>
+                        <div class="text-center" id="personCountDiv1">
+                            <span id="personCount1" style="display:inline"><span id="personNumber1">0</span><span id="plusSign1" style="display:none;vertical-align:top;">+</span>  person wait</span>
+                            <span id="windowClosed1" style="display:none;">WINDOW CLOSED</span>
                         </div>
                          <div id="line1" class="w3-container w3-center"></div>
                       </div>
@@ -283,135 +283,117 @@
           </div>
 
           <script>
-          function ajax(url, method, payload, successCallback){
-              var xhr = new XMLHttpRequest();
-              xhr.open(method, url, true);
-              xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-              xhr.onreadystatechange = function () {
-                if (xhr.readyState != 4 || xhr.status != 200) return;
-                successCallback(xhr.responseText);
-              };
-              xhr.send(JSON.stringify(payload));
-          }
-
-          ajax("http://lineatkaf.herokuapp.com/line?line=1","GET",{},move);
-          ajax("http://lineatkaf.herokuapp.com/line?line=2","GET",{},move2);
-
-          function move(response) {
-            var respData = JSON.parse(response);
-            var dates = respData["date"].split("-");
-            var open1 = respData["open"];
-            var label = dates[3]+":"+dates[4]+":"+dates[5];
-            var line = Math.min(respData["line"],15);
-            var elem = document.getElementById("line1");
-            var personText = document.getElementById("personNumber")
-            var personCount = document.getElementById("personCount")
-            var windowClosed = document.getElementById("windowClosed")
-            var plusSign = document.getElementById("plusSign1")
-            var height = elem.style.height;
-            var color = elem.style.backgroundColor;
-            var text = elem.textContent;
-            height = Math.round(15*height.slice(0, -1)/74);
-            if (open1) {
-              personCount.style.display = 'inline';
-              windowClosed.style.display = 'none';
-            var id = setInterval(frame, 50);
-            } else {
-              elem.style.height = '0%';
-              personCount.style.display = 'none';
-              windowClosed.style.display = 'inline';
-            }
-            function frame() {
-              if (height > line) {
-                height = height - .25;
-                elem.style.height = 74*height/15 + '%';
-                personText.innerHTML =Math.round(height);
-              } else if (height < line) {
-                height = height + .25;
-                elem.style.height = 74*height/15 + '%';
-                personText.innerHTML =Math.round(height);
-              } else {
-                clearInterval(id);
-              }
-              if (height < 6) {
-                elem.style.backgroundColor = "#9edb6e";
-              } else if (height >= 12) {
-                elem.style.backgroundColor = "#ff9383";
-              } else {
-                elem.style.backgroundColor = "#ffda79";
-              }
-              if (height==15 & respData["line"] >15) {
-                plusSign.style.display = 'inline';
-              } else {
-                plusSign.style.display = 'none';
-              }
-            }
-          }
-          function move2(response) {
-            var respData = JSON.parse(response);
-            var dates = respData["date"].split("-");
-            var open2 = respData["open"]
-            var label = dates[3]+":"+dates[4]+":"+dates[5];
-            var line = Math.min(respData["line"],15);
-            var elem = document.getElementById("line2");
-            var personText = document.getElementById("personNumber2")
-            var personCount = document.getElementById("personCount2")
-            var windowClosed = document.getElementById("windowClosed2")
-            var plusSign = document.getElementById("plusSign2")
-            var height = elem.style.height;
-            var color = elem.style.backgroundColor;
-            var text = elem.textContent;
-            height = Math.round(15*height.slice(0, -1)/74);
-            if (open2) {
+          // Get line 1 data on page load
+          fetch("http://lineatkaf.herokuapp.com/line?line=1")
+            .then((response) => {
+              return response.json();
+            })
+            .then((data) => {
+              processData(data,1);
+            })
+            .catch((err) => {
+              return console.log(err)
+            });
+            // Get line 2 data on page load
+            fetch("http://lineatkaf.herokuapp.com/line?line=2")
+            .then((response) => {
+              return response.json();
+            })
+            .then((data) => {
+              processData(data, 2);
+            })
+            .catch((err) => {
+              return console.log(err)
+            });
+           
+            function processData(respData, lineNum){
+              var dates = respData["date"].split("-");
+              var open = respData["open"];
+              var label = dates[3]+":"+dates[4]+":"+dates[5];
+              var line = Math.min(respData["line"],15);
+              var elem = document.getElementById(`line${lineNum}`);
+              var personText = document.getElementById(`personNumber${lineNum}`)
+              var personCount = document.getElementById(`personCount${lineNum}`)
+              var windowClosed = document.getElementById(`windowClosed${lineNum}`)
+              var plusSign = document.getElementById(`plusSign${lineNum}`)
+              var height = elem.style.height;
+              var color = elem.style.backgroundColor;
+              var text = elem.textContent;
+              height = Math.round(15*height.slice(0, -1)/74);
+              if (open) {
               personCount.style.display = 'inline';
               windowClosed.style.display = 'none';
               var id = setInterval(frame, 50);
-            } else {
-              elem.style.height = '0%';
-              personCount.style.display = 'none';
-              windowClosed.style.display = 'inline';
+              } else {
+                elem.style.height = '0%';
+                personCount.style.display = 'none';
+                windowClosed.style.display = 'inline';
+              }
+              function frame() {
+                if (height > line) {
+                  height = height - .25;
+                  elem.style.height = 74*height/15 + '%';
+                  personText.innerHTML =Math.round(height);
+                } else if (height < line) {
+                  height = height + .25;
+                  elem.style.height = 74*height/15 + '%';
+                  personText.innerHTML =Math.round(height);
+                } else {
+                  clearInterval(id);
+                }
+                if (height < 6) {
+                  elem.style.backgroundColor = "#9edb6e";
+                } else if (height >= 12) {
+                  elem.style.backgroundColor = "#ff9383";
+                } else {
+                  elem.style.backgroundColor = "#ffda79";
+                }
+                if (height > 15) {
+                  plusSign.style.display = 'inline';
+                } else {
+                  plusSign.style.display = 'none';
+                }
+                if (height==15 & respData["line"] >15) {
+                  plusSign.style.display = 'inline';
+                } else {
+                  plusSign.style.display = 'none';
+                }
+              }
             }
-            function frame() {
-              if (height > line) {
-                height = height - .25;
-                elem.style.height = 74*height/15 + '%';
-                personText.innerHTML =Math.round(height);
-              } else if (height < line) {
-                height = height + .25;
-                elem.style.height = 74*height/15 + '%';
-                personText.innerHTML =Math.round(height);
-              } else {
-                clearInterval(id);
-              }
-              if (height < 6) {
-                elem.style.backgroundColor = "#9edb6e";
-              } else if (height >= 12) {
-                elem.style.backgroundColor = "#ff9383";
-              } else {
-                elem.style.backgroundColor = "#ffda79";
-              }
-              if (height >15) {
-                plusSign.style.display = 'inline';
-              } else {
-                plusSign.style.display = 'none';
-              }
-              if (height==15 & respData["line"] >15) {
-                plusSign.style.display = 'inline';
-              } else {
-                plusSign.style.display = 'none';
-              }
-            }
-          }
+          
           var d = new Date();
           var counter = 0;
           // if (d.getHours() < 17) {
            var interval = setInterval(function(){
-                ajax("http://lineatkaf.herokuapp.com/line?line=1","GET",{},move);
-                ajax("http://lineatkaf.herokuapp.com/line?line=2","GET",{},move2);
+                // Get line 1 data 
+              fetch("http://lineatkaf.herokuapp.com/line?line=1")
+                .then((response) => {
+                  return response.json();
+                })
+                .then((data) => {
+                  processData(data,1)
+                  // Uncomment to see that data is getting pulled in
+                  // Should see repeated console log every 2.5s
+                  // console.log(data);
+                })
+                .catch((err) => {
+                  return console.log(err)
+                });
+                // Get line 2 data
+                fetch("http://lineatkaf.herokuapp.com/line?line=2")
+                .then((response) => {
+                  return response.json();
+                })
+                .then((data) => {
+                  processData(data, 2)
+                  // Uncomment to see that data is getting pulled in
+                  // Should see repeated console log every 2.5s
+                  // console.log(data);
+                })
+                .catch((err) => {
+                  return console.log(err)
+                });
                 counter++
-                // if (counter > 30) {
-                  // clearInterval(interval)
-                // }
              }, 2500);
           // }
           </script>
@@ -466,9 +448,6 @@
       </div>
 
     </section>
-
-
-
 
     <!-- Icons Grid -->
     <section class="features-icons bg-light text-center">
