@@ -1,6 +1,6 @@
 {
-    "title": "Landing Page",
-    "name": "startbootstrap-landing-page",
+    "title": "Line At Kaf Home Page",
+    "name": "line-at-kaf-homepage",
     "version": "4.0.0",
     "description": "An HTML landing page template built with Bootstrap",
     "keywords": [
@@ -11,19 +11,16 @@
         "theme",
         "template"
     ],
-    "homepage": "https://startbootstrap.com/template-overviews/landing-page",
-    "bugs": {
-        "url": "https://github.com/BlackrockDigital/startbootstrap-landing-page/issues",
-        "email": "feedback@startbootstrap.com"
-    },
+    "homepage": "http://lineatkaf.com/",
     "license": "MIT",
-    "author": "Start Bootstrap",
+    "author": "Eshin Jolly; Jin Hyun Cheong",
     "contributors": [
-        "David Miller (http://davidmiller.io/)"
+        "Eshin Jolly (eshinjolly.com)",
+        "Jin Hyun Cheong (jinhyuncheong.com)"
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/BlackrockDigital/startbootstrap-landing-page.git"
+        "url": "https://github.com/lineatkaf/lineatkaf.github.io.git"
     },
     "dependencies": {
         "bootstrap": "4.0.0",
